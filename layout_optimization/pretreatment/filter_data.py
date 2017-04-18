@@ -19,13 +19,13 @@ class FilterData:
         #print len(self.file_list)
 
 
-    def filter(self, file_input, file_output, start_row = 2, step = 1):
+    def filter(self, file_input, file_output, start_row = 2, step = 12):
         csv_file = file(file_input, 'rb')
         reader = csv.reader(csv_file)
         tmp_data = [line for line in reader]
-
+        #print len(tmp_data)
         #每个文件的末尾含有一些无用数据，因此删除一些
-        file_len = len(tmp_data)-4
+        file_len = 14356
         		
         #根据起始行和步长提取出文件中的数据，文件格式为  [传感器编号，温度，湿度]
         file_data = [(tmp_data[i][2], tmp_data[i][3]) for i in range(start_row, file_len, step)]

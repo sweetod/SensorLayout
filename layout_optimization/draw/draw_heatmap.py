@@ -24,9 +24,9 @@ class DrawHeatMap:
         '10728405','10728419','10728425','10728439','10728404','10728408','10728522','10728396','10728422','10728507','10728513',
         '10728387','10728385','10728519']
 
-    def draw(self, filtered_file_path, pos_file_path, temp_hum, low_mid_high, title, file_saved):
+    def draw(self, filtered_file_path, pos_file_path, temp_hum, low_mid_high, title, file_saved,data_num):
         read_data = ReadData(filtered_file_path, pos_file_path)
-        temp_hum_data = read_data.get_temperature_humidity_data(1)
+        temp_hum_data = read_data.get_temperature_humidity_data(14355)
         pos_data = read_data.get_pos_data()
         #print temp_hum_data
         data = []
@@ -35,8 +35,8 @@ class DrawHeatMap:
             tmp.append(float(pos_data[item][0]))
             tmp.append(float(pos_data[item][1]))
             tmp.append(float(pos_data[item][2]))
-            tmp.append(float(temp_hum_data[item][0][0]))
-            tmp.append(float(temp_hum_data[item][0][1]))
+            tmp.append(float(temp_hum_data[item][data_num][0]))
+            tmp.append(float(temp_hum_data[item][data_num][1]))
             #print tmp
             #print pos_data[item][0], pos_data[item][1], temp_hum_data[item][0][0]
             #data.append( [int(pos_data[item][0])/10, int(pos_data[item][1])/10, float(temp_hum_data[item][0][0])] )
@@ -107,16 +107,18 @@ class DrawHeatMap:
 
         #plt.show()
         plt.savefig(file_saved)
+        plt.close(fig)
 
 
 if __name__ == '__main__':
     dh = DrawHeatMap()
-    dh.draw("../data/filter_data","../data/pos/pos.csv", 3, 0 ,u"高度为0cm时的洞窟温度热力图", u"../data/result/高度为0cm时的洞窟温度热力图.png")
-    dh.draw("../data/filter_data","../data/pos/pos.csv", 3, 1 ,u"高度为180cm时的洞窟温度热力图", u"../data/result/高度为180cm时的洞窟温度热力图.png")
-    dh.draw("../data/filter_data","../data/pos/pos.csv", 3, 2 ,u"高度为360cm时的洞窟温度热力图", u"../data/result/高度为360cm时的洞窟温度热力图.png")
-    dh.draw("../data/filter_data","../data/pos/pos.csv", 4, 0 ,u"高度为0cm时的洞窟湿度热力图", u"../data/result/高度为0cm时的洞窟湿度热力图.png")
-    dh.draw("../data/filter_data","../data/pos/pos.csv", 4, 1 ,u"高度为180cm时的洞窟湿度热力图", u"../data/result/高度为180cm时的洞窟湿度热力图.png")
-    dh.draw("../data/filter_data","../data/pos/pos.csv", 4, 2 ,u"高度为360cm时的洞窟湿度热力图", u"../data/result/高度为360cm时的洞窟湿度热力图.png")
+    for i in range(1197):
+        # dh.draw("../data/filter_data","../data/pos/pos.csv", 3, 0 ,u"高度为0cm时的洞窟温度热力图", u"../data/result/heat_0/"+str(i)+u".png",i)
+        dh.draw("../data/filter_data","../data/pos/pos.csv", 3, 1 ,u"高度为180cm时的洞窟温度热力图", u"../data/result/heat_180/"+str(i)+u".png",i)
+        dh.draw("../data/filter_data","../data/pos/pos.csv", 3, 2 ,u"高度为360cm时的洞窟温度热力图", u"../data/result/heat_360/"+str(i)+u".png",i)
+        dh.draw("../data/filter_data","../data/pos/pos.csv", 4, 0 ,u"高度为0cm时的洞窟湿度热力图", u"../data/result/hum_0/"+str(i)+u".png",i)
+        dh.draw("../data/filter_data","../data/pos/pos.csv", 4, 1 ,u"高度为180cm时的洞窟湿度热力图", u"../data/result/hum_180/"+str(i)+u".png",i)
+        dh.draw("../data/filter_data","../data/pos/pos.csv", 4, 2 ,u"高度为360cm时的洞窟湿度热力图", u"../data/result/hum_360/"+str(i)+u".png",i)
     #3 代表温度， 4 代表湿度
 
     # print read_data.get_temperature_humidity_data(1)
