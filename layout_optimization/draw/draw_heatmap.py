@@ -82,14 +82,17 @@ class DrawHeatMap:
         plt.plot([1110,1810],[700,700],'k-',linewidth=2)
         plt.plot([1110,1810],[100,100],'k-',linewidth=2)
         plt.plot([1810,1810],[100,700],'k-',linewidth=2)
-
+        ax.set_xlim(10,1810)
+        ax.set_ylim(10,850)
         if temp_hum == 3:
             im = ax.imshow(z[low_mid_high], interpolation='bicubic', extent=[10, 1810, 10, 850], vmin=6, vmax=15.5)
+            k = np.zeros([3,19,39])
+            im2 = ax.imshow(k,extent = [10,500,500,700])
             #ax.grid(True)
-            divider = make_axes_locatable(ax)
-            cax = divider.append_axes("right", size="5%", pad=0.5)
-            cbar = plt.colorbar(im, cax = cax)
-            cbar.set_label('$^oC$')
+         #  divider = make_axes_locatable(ax)
+          #  cax = divider.append_axes("right", size="5%", pad=0.5)
+       #     cbar = plt.colorbar(im, cax = cax)
+        #    cbar.set_label('$^oC$')
         else:
             im = ax.imshow(z[low_mid_high], interpolation='bicubic', extent=[0, 1821, 0, 861], vmin=10, vmax=27)
             #ax.grid(True)
